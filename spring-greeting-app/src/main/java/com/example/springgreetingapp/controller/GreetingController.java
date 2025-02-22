@@ -45,4 +45,17 @@ public class GreetingController {
     public ResponseEntity<String> deleteGreeting() {
         return ResponseEntity.ok("Greeting deleted");
     }
+    @GetMapping("/value")
+    public ResponseEntity<String> getGreeting(@RequestParam(value = "firstName", required = false) String firstName,
+                                              @RequestParam(value = "lastName", required = false) String lastName) {
+        if (firstName != null && lastName != null) {
+            return ResponseEntity.ok("Hello, " + firstName + " " + lastName);
+        } else if (firstName != null) {
+            return ResponseEntity.ok("Hello, " + firstName);
+        } else if (lastName != null) {
+            return ResponseEntity.ok("Hello, " + lastName);
+        } else {
+            return ResponseEntity.ok("Hello World");
+        }
+    }
 }
