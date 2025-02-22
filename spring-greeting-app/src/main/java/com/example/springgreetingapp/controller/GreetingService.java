@@ -4,6 +4,9 @@ import com.example.springgreetingapp.model.Greeting;
 import com.example.springgreetingapp.repository.GreetingRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+
 @Service
 public class GreetingService {
     private final GreetingRepository greetingRepository;
@@ -32,5 +35,10 @@ public class GreetingService {
     }
     public void saveGreetingMessage(String message) {
         greetingRepository.save(new Greeting(message));
+    }
+    public List<String> getAllGreetings() {
+        return greetingRepository.findAll().stream()
+                .map(Greeting::getMessage)
+                .toList();
     }
 }
