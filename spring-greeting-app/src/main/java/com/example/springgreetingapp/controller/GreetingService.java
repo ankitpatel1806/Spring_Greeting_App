@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class GreetingService {
     private final GreetingRepository greetingRepository;
@@ -40,5 +39,14 @@ public class GreetingService {
         return greetingRepository.findAll().stream()
                 .map(Greeting::getMessage)
                 .toList();
+    }
+    public String updateGreetingMessage(Long id, String newMessage) {
+        return greetingRepository.findById(id)
+                .map(greeting -> {
+                    greeting.setMessage(newMessage);
+                    greetingRepository.save(greeting);
+                    return "Greeting updated successfully";
+                })
+                .orElse("Greeting not found");
     }
 }
