@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @RequestMapping("/greeting")
 public class GreetingController {
@@ -90,6 +91,10 @@ public class GreetingController {
         response.put("message", greetingService.getGreetingMessage(firstName, lastName));
         return response;
     }
-
-
+    @DeleteMapping("/{id}")
+    public Map<String, String> deleteGreeting(@PathVariable Long id) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", greetingService.deleteGreetingById(id));
+        return response;
+    }
 }
