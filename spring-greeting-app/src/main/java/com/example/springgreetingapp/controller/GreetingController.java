@@ -14,35 +14,69 @@ public class GreetingController {
 
     private final GreetingService greetingService;
 
-    @Autowired
     public GreetingController(GreetingService greetingService) {
         this.greetingService = greetingService;
     }
 
-    @GetMapping("/simple")
-    public ResponseEntity<Map<String, String>> getSimpleGreeting() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Hello, World!");
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping
-    public ResponseEntity<String> getGreeting() {
-        return ResponseEntity.ok(greetingService.getGreetingMessage());
+    public Map<String, String> getGreeting() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hello, this is a GET response!");
+        return response;
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> postGreeting(@RequestBody Map<String, String> greeting) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(greeting);
+    public Map<String, String> postGreeting() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hello, this is a POST response!");
+        return response;
     }
 
     @PutMapping
-    public ResponseEntity<Map<String, String>> updateGreeting(@RequestBody Map<String, String> greeting) {
-        return ResponseEntity.ok(greeting);
+    public Map<String, String> putGreeting() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hello, this is a PUT response!");
+        return response;
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteGreeting() {
-        return ResponseEntity.ok("Greeting deleted");
+    public Map<String, String> deleteGreeting() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hello, this is a DELETE response!");
+        return response;
     }
+
+    @GetMapping
+    public Map<String, String> getGreeting(@RequestParam(required = false) String firstName,
+                                           @RequestParam(required = false) String lastName) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", greetingService.getGreetingMessage(firstName, lastName));
+        return response;
+    }
+
+    @PostMapping
+    public Map<String, String> postGreeting(@RequestParam(required = false) String firstName,
+                                            @RequestParam(required = false) String lastName) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", greetingService.getGreetingMessage(firstName, lastName));
+        return response;
+    }
+
+    @PutMapping
+    public Map<String, String> putGreeting(@RequestParam(required = false) String firstName,
+                                           @RequestParam(required = false) String lastName) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", greetingService.getGreetingMessage(firstName, lastName));
+        return response;
+    }
+
+    @DeleteMapping
+    public Map<String, String> deleteGreeting(@RequestParam(required = false) String firstName,
+                                              @RequestParam(required = false) String lastName) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", greetingService.getGreetingMessage(firstName, lastName));
+        return response;
+    }
+
+
 }
